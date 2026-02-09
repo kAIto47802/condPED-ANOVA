@@ -1,0 +1,82 @@
+from __future__ import annotations
+
+import argparse
+from pathlib import Path
+import pickle
+from typing import TYPE_CHECKING
+
+import numpy as np
+import optuna
+
+from experiments._evaluator_registry import (
+    get_all_evaluator_names,
+    get_evaluator,
+)
+from experiments._objectives import get_all_objective_names, get_objective
+
+
+if TYPE_CHECKING:
+    from argparse import Namespace
+
+
+def _run_experiment_once(args: Namespace, seed: int) -> tuple[dict[str, float], dict[str, float]]:
+    objective = get_objective(args.objective_name)
+    sampler = optuna.samplers.RandomSampler(seed=seed)
+    study = optuna.create_study(direction="minimize", sampler=sampler)
+    study.optimize(objective, n_trials=args.n_trials)
+    evaluator = get_evaluator(args.evaluator_name)()
+    normalized_importances = optuna.importance.get_param_importances(study, evaluator=evaluator)
+    importances = optuna.importance.get_param_importances(
+        study, evaluator=evaluator, normalize=False
+    )
+    return normalized_importances, importances
+
+
+def main(args: Namespace) -> None:
+    save_path = Path(args.output_dir) / (
+        f"{args.objective_name}_{args.evaluator_name.replace('/', '-')}_{args.n_trials}trials.pkl"
+    )
+    if save_path.exists():
+        print(f"Results already exist at {save_path}, skipping...")
+        return
+    save_path.parent.mkdir(parents=True, exist_ok=True)
+
+    results_normalized_raw, results_raw = zip(
+        *[_run_experiment_once(args, 42 + s) for s in range(args.n_seeds)]
+    )
+    results_normalized = {
+        k: np.array([res[k] for res in results_normalized_raw]) for k in results_normalized_raw[0]
+    }
+    results = {k: np.array([res[k] for res in results_raw]) for k in results_raw[0]}
+
+    with open(save_path, "wb") as f:
+        pickle.dump(
+            {
+                "args": args,
+                "results_normalized": results_normalized,
+                "results_raw": results,
+            },
+            f,
+        )
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--objective-name",
+        type=str,
+        choices=get_all_objective_names(),
+        default="activation-disjoint",
+    )
+    parser.add_argument(
+        "--evaluator-name",
+        type=str,
+        choices=get_all_evaluator_names(),
+        required=True,
+    )
+    parser.add_argument("--n-trials", type=int, default=1000)
+    parser.add_argument("--n-seeds", type=int, default=10)
+    parser.add_argument("--output-dir", type=str, default="results")
+    args = parser.parse_args()
+
+    main(args)
