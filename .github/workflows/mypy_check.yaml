@@ -18,10 +18,11 @@ jobs:
         with:
           python-version: 3.11
 
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v5
+
       - name: Install
-        run: |
-          python -m pip install -U pip
-          pip install --progress-bar off -U .[check]
+        run: uv sync --locked --extra check
 
       - name: Mypy Check
-        run: mypy .
+        run: uv run mypy .
