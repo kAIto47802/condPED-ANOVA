@@ -9,6 +9,12 @@
 </h1>
 
 <p align="center">
+  <strong>✨️ Accepted to the 32nd ACM SIGKDD Conference on Knowledge Discovery and Data Mining ✨</strong>
+  <br />
+  <strong> (KDD 2026) </strong>
+</p>
+
+<p align="center">
   Kaito Baba &emsp; Yoshihiko Ozaki &emsp; Shuhei Watanabe
 </p>
 
@@ -37,7 +43,7 @@
   </a>
 </h2>
 
-✨️ `cond_ped_anova` is fully compatible with [Optuna](https://github.com/optuna/optuna)’s built-in hyperparameter importance API.
+`cond_ped_anova` is fully compatible with [Optuna](https://github.com/optuna/optuna)’s built-in hyperparameter importance API.
 
 ## 1. Installation
 
@@ -79,7 +85,7 @@ importance = optuna.importance.get_param_importances(study, evaluator=evaluator)
   </a>
 </h2>
 
-🔁 All experiments in [our paper](https://arxiv.org/abs/2601.20800) are fully reproducible.
+All experiments in [our paper](https://arxiv.org/abs/2601.20800) are fully reproducible.
 
 ## 1. Clone this Repository & Install Dependencies
 
