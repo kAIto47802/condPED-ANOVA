@@ -130,7 +130,7 @@ requires-dist = [
     { name = "mypy", marker = "extra == 'check'" },
     { name = "numba", marker = "extra == 'experiments'", specifier = ">=0.57" },
     { name = "numpy" },
-    { name = "optuna" },
+    { name = "optuna", specifier = ">=4.7.0" },
     { name = "optuna-integration", marker = "extra == 'experiments'" },
     { name = "ruff", marker = "extra == 'check'" },
     { name = "scikit-learn", marker = "extra == 'experiments'" },
