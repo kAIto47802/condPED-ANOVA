@@ -43,7 +43,10 @@ def _run_experiment_once(
     args: Namespace, seed: int
 ) -> tuple[list[dict[str, list[float]]], list[dict[str, list[float]]], list[np.ndarray]]:
     objective = get_objective(args.objective_name)
-    sampler = optuna.samplers.RandomSampler(seed=seed)
+    sampler = {
+        "random": optuna.samplers.RandomSampler,
+        "tpe": optuna.samplers.TPESampler,
+    }[args.sampler](seed=seed)
     study = optuna.create_study(direction="minimize", sampler=sampler)
     study.optimize(objective, n_trials=args.n_trials)
 
@@ -74,8 +77,11 @@ def _run_experiment_once(
 
 
 def main(args: Namespace) -> None:
+    # For backward compatibility, add the sampler name only for non-random samplers.
     save_path = Path(args.output_dir) / (
-        f"{args.objective_name}_{args.evaluator_name.replace('/', '-')}_{args.n_trials}trials.pkl"
+        f"{args.objective_name}_{args.evaluator_name.replace('/', '-')}"
+        + ("" if args.sampler == "random" else f"_{args.sampler}")
+        + f"_{args.n_trials}trials.pkl"
     )
     if save_path.exists():
         print(f"Results already exist at {save_path}, skipping...")
@@ -126,6 +132,7 @@ if __name__ == "__main__":
     )
     parser.add_argument("--n-trials", type=int, default=1000)
     parser.add_argument("--n-seeds", type=int, default=10)
+    parser.add_argument("--sampler", type=str, choices=["random", "tpe"], default="random")
     parser.add_argument("--region-quantiles", type=float, nargs="+", default=[1.0, 0.75, 0.5])
     parser.add_argument("--target-quantile-step", type=float, default=0.01)
     parser.add_argument("--output-dir", type=str, default="results")

@@ -39,6 +39,7 @@ experiments = [
   "scikit-learn", # for ShapleyImportanceEvaluator and FanovaImportanceEvaluator
   "shap", # for ShapleyImportanceEvaluator
   "matplotlib", # for plotting results
+  "scipy", # for computing metrics such as spearmanr
   "yahpo_gym==1.0.2", # for YAHPO Gym experiments
   "ConfigSpace<1.0.0", # for YAHPO Gym experiments; to be compatible with yahpo_gym
   # uv may incorrectly resolve an old numba (e.g., 0.53.x) via shap's dependencies,

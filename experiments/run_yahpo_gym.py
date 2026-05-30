@@ -12,10 +12,8 @@ import optuna
 from optuna.distributions import CategoricalDistribution, FloatDistribution, IntDistribution
 from yahpo_gym import BenchmarkSet, list_scenarios, local_config
 
-from experiments._evaluator_registry import (
-    get_all_evaluator_names,
-    get_evaluator,
-)
+from experiments._evaluator_registry import get_all_evaluator_names, get_evaluator
+from experiments._print import print_table
 
 
 if TYPE_CHECKING:
@@ -114,17 +112,22 @@ def main(args: Namespace) -> None:
             },
             f,
         )
-    with open(save_path.with_suffix(".stats.txt"), "w") as f:
-        f.write("Learner ID\tMin\tMean\tMax\n")
-        for learner_id in means:
-            mean_min, mean_mean, mean_max = means[learner_id]
-            stderr_min, stderr_mean, stderr_max = stderrs[learner_id]
-            f.write(
-                f"{learner_id}\t"
-                f"{mean_min:.6f} ± {stderr_min:.6f}\t"
-                f"{mean_mean:.6f} ± {stderr_mean:.6f}\t"
-                f"{mean_max:.6f} ± {stderr_max:.6f}\n"
-            )
+    data = [["Learner ID", "Min", "Mean", "Max"]] + [
+        [
+            f"{learner_id}",
+            f"{mean_min:.6f} ± {stderr_min:.6f}",
+            f"{mean_mean:.6f} ± {stderr_mean:.6f}",
+            f"{mean_max:.6f} ± {stderr_max:.6f}",
+        ]
+        for (learner_id, (mean_min, mean_mean, mean_max)), (
+            stderr_min,
+            stderr_mean,
+            stderr_max,
+        ) in zip(means.items(), stderrs.values(), strict=True)
+    ]
+    print_table(save_path.with_suffix(".stats.md"), data, mode="md")
+    with open(save_path.with_suffix(".stats_raw.pkl"), "wb") as f:
+        pickle.dump(stats, f)
 
 
 if __name__ == "__main__":
