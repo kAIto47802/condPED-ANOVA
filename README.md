@@ -132,12 +132,12 @@ Running the commands below reproduces the corresponding experiments and regenera
     ./run_runtime_comparison.sh
     ```
 
-- condPED-ANOVA Results with Different $N$ (Figure 8):
+- condPED-ANOVA results with different $N$ (Figure 8):
     ```bash
     ./run_cond_ped_anova_different_n.sh
     ```
 
-- Additional Experiments on Synthetic Problems (Figures 13 and 14):
+- Additional experiments on synthetic problems (Figures 13 and 14):
     ```bash
     ./run_cond_ped_anova_additional.sh
     ```
