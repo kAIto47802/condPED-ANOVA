@@ -104,7 +104,7 @@ uv sync --python 3.13 --extra experiments
 
 Running the commands below reproduces the corresponding experiments and regenerates the exact figures:
 
-- condPED-ANOVA on synthetic problems (Figures 1, 7, and 11):
+- condPED-ANOVA on synthetic problems (Figures 1, 7, 11, and 12):
    ```bash
    ./run_cond_ped_anova.sh
    ```
@@ -119,7 +119,7 @@ Running the commands below reproduces the corresponding experiments and regenera
     ./run_ablations.sh
     ```
 
-- condPED-ANOVA on real-world benchmarks (Figures 5 and 14 and Tables 1 and 2):
+- condPED-ANOVA and baseline methods on real-world benchmarks (Figures 5 and 15 and Tables 1, 2, 3, and 4):
     ```bash
     # prepare YAHPO Gym data
     git clone https://github.com/slds-lmu/yahpo_data.git
@@ -137,8 +137,7 @@ Running the commands below reproduces the corresponding experiments and regenera
     ./run_cond_ped_anova_different_n.sh
     ```
 
-- Additional Experiments on Synthetic
-Problems (Figures 12 and 13):
+- Additional Experiments on Synthetic Problems (Figures 13 and 14):
     ```bash
     ./run_cond_ped_anova_additional.sh
     ```
