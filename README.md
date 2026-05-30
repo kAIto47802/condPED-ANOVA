@@ -162,10 +162,15 @@ The raw experiment outputs (pickled results) and the values used in the tables a
 If you find condPED-ANOVA useful in your research, please consider citing the following paper:
 
 ```bibtex
-@article{baba2026condpedanova,
-  title={Conditional {PED-ANOVA}: Hyperparameter Importance in Hierarchical \& Dynamic Search Spaces},
-  author={Baba, Kaito and Ozaki, Yoshihiko and Watanabe, Shuhei},
-  journal={arXiv preprint arXiv:2601.20800},
-  year={2026},
+@inproceedings{baba2026condpedanova,
+  title     = {Conditional {PED-ANOVA}: Hyperparameter Importance in Hierarchical \& Dynamic Search Spaces},
+  author    = {Baba, Kaito and Ozaki, Yoshihiko and Watanabe, Shuhei},
+  year      = {2026},
+  month     = {August},
+  booktitle = {Proceedings of the 32nd ACM SIGKDD Conference on Knowledge Discovery and Data Mining V.2},
+  publisher = {Association for Computing Machinery},
+  address   = {Jeju Island, Republic of Korea},
+  doi       = {10.1145/3770855.3817758},
+  isbn      = {979-8-4007-2259-2/2026/08},
 }
 ```
