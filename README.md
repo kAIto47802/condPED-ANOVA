@@ -29,7 +29,13 @@
   <a href="https://www.python.org">
     <img src="https://img.shields.io/badge/python-3.9%20%7C%203.10%20%7C%203.11%20%7C%203.12%20%7C%203.13%20%7C%203.14-blue" alt="Python" />
   </a>
-  <a href="http://arxiv.org/abs/2601.20800">
+  <!-- Use shields.io for the DOI badge to keep badge padding consistent. -->
+  <a href="https://doi.org/10.5281/zenodo.20467920">
+    <img src="https://img.shields.io/badge/DOI-10.5281%2Fzenodo.20467920-blue.svg" alt="DOI" />
+  </a>
+</div>
+<div  align="center">
+　<a href="http://arxiv.org/abs/2601.20800">
     <img src="https://img.shields.io/badge/arXiv-2601.20800-b31b1b.svg" alt="arXiv" />
   </a>
 </div>
