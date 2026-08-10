@@ -8,10 +8,7 @@ from typing import TYPE_CHECKING
 import numpy as np
 import optuna
 
-from experiments._evaluator_registry import (
-    get_all_evaluator_names,
-    get_evaluator,
-)
+from experiments._evaluator_registry import get_all_evaluator_names, get_evaluator
 from experiments._objectives import get_all_objective_names, get_objective
 
 
