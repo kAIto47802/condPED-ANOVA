@@ -38,6 +38,9 @@
 　<a href="http://arxiv.org/abs/2601.20800">
     <img src="https://img.shields.io/badge/arXiv-2601.20800-b31b1b.svg" alt="arXiv" />
   </a>
+  <a href="https://github.com/kAIto47802/condPED-ANOVA/blob/main/poster.pdf">
+    <img src="https://img.shields.io/badge/KDD%202026-Poster-blue.svg" alt="poster"/>
+  </a>
 </div>
 
 <br />
