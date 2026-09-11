@@ -46,6 +46,46 @@
 <br />
 
 <h2 align="center">
+  <div>📣 News 📣</div>
+  <a href="https://github.com/kAIto47802/condPED-ANOVA">
+    <img width="80%" height="8px" src="assets/line.svg" />
+  </a>
+</h2>
+
+🔔 **2026-09-07**: **condPED-ANOVA has been adopted as the default hyperparameter importance evaluation method in [Optuna v5.0](https://github.com/optuna/optuna/releases/tag/v5.0.0) and [Rustuna](https://rustuna.readthedocs.io/en/latest/api/importance/)!**
+Our method is integrated into `PedAnovaImportanceEvaluator` in both libraries, enabling importance evaluation in hierarchical and dynamic search spaces.
+
+Related PRs:
+
+- Optuna #6682: [Add support for conditional search spaces in PED-ANOVA](https://github.com/optuna/optuna/pull/6682)
+- Optuna #6748: [Make `PedAnovaImportanceEvaluator` the default importance evaluator](https://github.com/optuna/optuna/pull/6748)
+- Rustuna #123: [Add support for conditional search spaces in PED-ANOVA](https://github.com/optuna/rustuna/pull/123)
+- Rustuna #135: [Expose PED-ANOVA parameter importance APIs to Python](https://github.com/optuna/rustuna/pull/135)
+
+Usage with Optuna v5.0+ or Rustuna:
+
+```python
+import optuna
+# import rustuna as optuna  # Replace the line above to use Rustuna.
+
+
+def objective(trial: optuna.trial.Trial) -> float:
+    c = trial.suggest_float("c", 0.0, 1.0)
+    if c < 0.5:
+        return trial.suggest_float("x", -5.0, -2.0)
+    else:
+        return trial.suggest_float("y", 2.0, 5.0)
+
+
+sampler = optuna.samplers.RandomSampler(seed=42)
+study = optuna.create_study(direction="minimize", sampler=sampler)
+study.optimize(objective, n_trials=1000)
+
+importance = optuna.importance.get_param_importances(study)
+print(importance)
+```
+
+<h2 align="center">
   <div>🚀 Quick Start 🚀</div>
   <a href="https://github.com/kAIto47802/condPED-ANOVA">
     <img width="80%" height="8px" src="assets/line.svg" />
@@ -72,11 +112,9 @@ from cond_ped_anova import CondPedAnovaImportanceEvaluator
 def objective(trial: optuna.trial.Trial) -> float:
     c = trial.suggest_float("c", 0.0, 1.0)
     if c < 0.5:
-        x = trial.suggest_float("x", -5.0, -2.0)
-        return x
+        return trial.suggest_float("x", -5.0, -2.0)
     else:
-        y = trial.suggest_float("y", 2.0, 5.0)
-        return y
+        return trial.suggest_float("y", 2.0, 5.0)
 
 
 sampler = optuna.samplers.RandomSampler(seed=42)
@@ -85,6 +123,7 @@ study.optimize(objective, n_trials=1000)
 
 evaluator = CondPedAnovaImportanceEvaluator()
 importance = optuna.importance.get_param_importances(study, evaluator=evaluator)
+print(importance)
 ```
 
 <h2 align="center">
