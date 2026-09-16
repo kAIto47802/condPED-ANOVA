@@ -218,6 +218,8 @@ If you find condPED-ANOVA useful in your research, please consider citing the fo
   publisher = {Association for Computing Machinery},
   address   = {Jeju Island, Republic of Korea},
   doi       = {10.1145/3770855.3817758},
-  isbn      = {979-8-4007-2259-2/2026/08},
+  isbn      = {9798400722592},
+  pages     = {57--68},
+  numpages  = {12},
 }
 ```
