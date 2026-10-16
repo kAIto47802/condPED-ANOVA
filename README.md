@@ -41,6 +41,9 @@
   <a href="https://github.com/kAIto47802/condPED-ANOVA/blob/main/poster.pdf">
     <img src="https://img.shields.io/badge/KDD%202026-Poster-blue.svg" alt="poster"/>
   </a>
+  <a href="https://speakerdeck.com/pfn/20261016-conditional-ped-anova">
+    <img src="https://img.shields.io/badge/Speaker%20Deck-Slides%20%28ja%29-009287.svg" alt="Speaker Deck slides (ja)" />
+  </a>
 </div>
 
 <br />
